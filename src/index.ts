@@ -8,5 +8,7 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
+  /* tslint:disable */
   console.log(`App listening on port ${port}!`)
+  /* tslint:enable */
 })
