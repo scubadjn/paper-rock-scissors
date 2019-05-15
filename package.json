@@ -1,0 +1,30 @@
+{
+  "name": "paper-rock-scissors",
+  "version": "0.0.1",
+  "description": "Game time!",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "nodemon",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scubadjn/paper-rock-scissors.git"
+  },
+  "author": "Daniel Nyström",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scubadjn/paper-rock-scissors/issues"
+  },
+  "homepage": "https://github.com/scubadjn/paper-rock-scissors#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.1",
+    "@types/node": "^12.0.2",
+    "nodemon": "^1.19.0",
+    "ts-node": "^8.1.0",
+    "typescript": "^3.4.5"
+  }
+}
