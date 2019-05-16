@@ -1,14 +1,5 @@
-import * as express from 'express'
+import Server from './Server'
 
-const app = express()
-const port = 3000
+const server = new Server({ port: 1337 })
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.listen(port, () => {
-  /* tslint:disable */
-  console.log(`App listening on port ${port}!`)
-  /* tslint:enable */
-})
+server.start()

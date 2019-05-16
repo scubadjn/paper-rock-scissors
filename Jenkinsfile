@@ -21,5 +21,11 @@ pipeline {
       }
     }
   
+    stage('cucumber'){
+      steps {
+        sh 'yarn cucumber'
+      }
+    }
+  
   }
 }
