@@ -4,7 +4,8 @@ Feature: playing paper rock scissor
   Scenario: game should be playable :)
     Given "firstPlayer" creates a new game
     Then a link that can be shared should be created
-    Then "secondPlayer" should be able to retrive the game created by player "firstPlayer" and join
+    Then an other player should be able to retrive the game created by player "firstPlayer"
+    Then "secondPlayer" should be able to join the game
     When "firstPlayer" makes a move "rock"
     When "secondPlayer" makes a move "rock"
     Then the round should be "draw"

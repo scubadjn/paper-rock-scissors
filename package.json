@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "nodemon",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint": "tslint -c tslint.json 'src/**/*.ts' 'test/**/*.ts'",
     "test": "jest",
     "cucumber": "cucumber-js test/ --require-module ts-node/register --require 'test/**/*.ts' --tags @api",
     "all": "yarn lint && yarn test && yarn cucumber"

@@ -1,7 +1,12 @@
 import * as Axios from 'axios'
-import { TEST } from '../types'
+import { AxiosPromise } from 'axios'
 
-export default class Client implements TEST.IClient {
+export interface IClient {
+  post: <T> (url: string, body?: object) => AxiosPromise<T>
+  get: <T> (url: string, body?: object) => AxiosPromise<T>
+}
+
+export default class Client implements IClient {
 
   private axios: Axios.AxiosInstance
 
@@ -14,7 +19,7 @@ export default class Client implements TEST.IClient {
   }
 
   get(url: string, body?: object) {
-    return this.axios.post(url, body)
+    return this.axios.get(url, body)
   }
 
 }

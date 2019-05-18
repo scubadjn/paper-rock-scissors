@@ -9,7 +9,7 @@
     }
   },
   "host": "localhost:1337",
-  "basePath": "/v1",
+  "basePath": "",
   "schemes": [
     "http"
   ],

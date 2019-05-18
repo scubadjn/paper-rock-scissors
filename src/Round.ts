@@ -11,12 +11,12 @@ export enum RESULT {
 }
 
 export interface IRound {
-  id: string
+  player: string
   move?: MOVE
 }
 
 export interface IRoundResult {
-  id: string
+  player: string
   result: RESULT
 }
 
@@ -24,7 +24,7 @@ export default class Round {
 
   play(playerA: IRound, playerB: IRound): IRoundResult {
     return {
-      id: playerA.id,
+      player: playerA.player,
       result: this.move(playerA.move, playerB.move),
     }
   }

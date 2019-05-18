@@ -1,4 +1,6 @@
-import { AxiosPromise, AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
+import { IGame } from '../../src/Game'
+import { IClient } from '../tools/Client'
 
 /* tslint:disable */
 export namespace TEST {
@@ -6,15 +8,11 @@ export namespace TEST {
   export interface IQueryResponse extends AxiosResponse {
   }
 
-  export interface IClient {
-    post:<T> (url: string, body?: object) => AxiosPromise<T>
-    get:<T> (url: string, body?: object) => AxiosPromise<T>
-  }
-
   export interface IMain {
     client: IClient
     response: IQueryResponse
     url: string
+    game: IGame
   }
 
   type IStep = RegExp | string;
