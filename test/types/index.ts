@@ -1,3 +1,5 @@
+import { AxiosPromise } from 'axios'
+
 /* tslint:disable */
 export namespace TEST {
 
@@ -5,6 +7,8 @@ export namespace TEST {
   }
 
   export interface IClient {
+    post:<T> (url: string, body?: object) => AxiosPromise<T>
+    get:<T> (url: string, body?: object) => AxiosPromise<T>
   }
 
   export interface IMain {
@@ -18,11 +22,11 @@ export namespace TEST {
 
 
   export interface IFeature {
-    Given(step: IStep, callback: IStepCallback): void;
-    When(step: IStep, callback: IStepCallback): void;
-    Then(step: IStep, callback: IStepCallback): void;
-    After(callback: any): void;
-    Before(callback: any): void;
+    Given(step: IStep, callback: IStepCallback): void | string;
+    When(step: IStep, callback: IStepCallback): void | string;
+    Then(step: IStep, callback: IStepCallback): void | string;
+    After(callback: any): void | string;
+    Before(callback: any): void | string;
   }
 
 }

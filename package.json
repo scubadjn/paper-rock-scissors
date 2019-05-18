@@ -1,11 +1,11 @@
 {
-  "name": "paper-rock-scissors",
+  "name": "paper-rock-scissor",
   "version": "0.0.1",
   "description": "Game time!",
   "main": "src/index.ts",
   "scripts": {
     "start": "nodemon",
-    "lint": "tslint tslint -c tslint.json 'src/**/*.ts'",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "jest",
     "cucumber": "cucumber-js test/ --require-module ts-node/register --require 'test/**/*.ts' --tags @api"
   },
@@ -30,6 +30,7 @@
     "@types/jest": "^24.0.13",
     "@types/node": "^12.0.2",
     "@types/uuid": "^3.4.4",
+    "axios": "^0.18.0",
     "chai": "^4.2.0",
     "cucumber": "^5.1.0",
     "jest": "^24.8.0",
