@@ -3,11 +3,9 @@ import { TEST } from '../types'
 
 export default class Client implements TEST.IClient {
 
-  private baseURL: string
   private axios: Axios.AxiosInstance
 
   constructor(baseURL: string) {
-    this.baseURL = `${baseURL}`
     this.axios = Axios.default.create({ baseURL })
   }
 

@@ -1,9 +1,9 @@
-import { AxiosPromise } from 'axios'
+import { AxiosPromise, AxiosResponse } from 'axios'
 
 /* tslint:disable */
 export namespace TEST {
 
-  export interface IQueryResponse {
+  export interface IQueryResponse extends AxiosResponse {
   }
 
   export interface IClient {
@@ -14,6 +14,7 @@ export namespace TEST {
   export interface IMain {
     client: IClient
     response: IQueryResponse
+    url: string
   }
 
   type IStep = RegExp | string;
