@@ -1,7 +1,7 @@
 export enum MOVE {
-  paper,
-  rock,
-  scissor,
+  paper = 'paper',
+  rock = 'rock',
+  scissor = 'scissor',
 }
 
 export enum RESULT {
@@ -22,10 +22,16 @@ export interface IRoundResult {
 
 export default class Round {
 
-  play(playerA: IRound, playerB: IRound): IRoundResult {
+  play(gameCreator: string, playerA: IRound, playerB: IRound): IRoundResult {
+    if (gameCreator === playerA.player) {
+      return {
+        player: playerA.player,
+        result: this.move(playerA.move, playerB.move),
+      }
+    }
     return {
-      player: playerA.player,
-      result: this.move(playerA.move, playerB.move),
+      player: playerB.player,
+      result: this.move(playerB.move, playerA.move),
     }
   }
 
@@ -34,11 +40,11 @@ export default class Round {
       case MOVE.paper:
         return this.playerApaper(playerBmove)
       case MOVE.rock:
-        return this.playerBrock(playerBmove)
+        return this.playerArock(playerBmove)
       case MOVE.scissor:
         return this.playerAscissor(playerBmove)
       default:
-        this.isError()
+        throw new Error('invalid move')
     }
   }
 
@@ -51,20 +57,20 @@ export default class Round {
       case MOVE.rock:
         return RESULT.win
       default:
-        this.isError()
+        throw new Error('invalid move')
     }
   }
 
-  playerBrock(playerBmove: MOVE): RESULT {
+  playerArock(playerBmove: MOVE): RESULT {
     switch (playerBmove) {
       case MOVE.rock:
         return RESULT.draw
-      case MOVE.paper:
-        return RESULT.lost
       case MOVE.scissor:
         return RESULT.win
+      case MOVE.paper:
+        return RESULT.lost
       default:
-        this.isError()
+        throw new Error('invalid move')
     }
   }
 
@@ -77,12 +83,8 @@ export default class Round {
       case MOVE.paper:
         return RESULT.win
       default:
-        this.isError()
+        throw new Error('invalid move')
     }
-  }
-
-  private isError() {
-    throw new Error('invalid move')
   }
 
 }

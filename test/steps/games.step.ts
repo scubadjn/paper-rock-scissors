@@ -41,18 +41,22 @@ When('{string} makes a move {string}',
     this.game = this.response.data
   })
 
-/* tslint:disable */
 Then('the round should be {string}',
-  async function(state) {
-    return 'pending'
+  async function(result) {
+    expect(this.game.rounds[this.game.rounds.length - 1].result).to.equal(result)
   })
 
 Then('{string} {string} the round',
   async function(player, result) {
-    return 'pending'
+    this.response = await this.client.get(`/games/${this.game.id}`)
+    this.game = this.response.data
+    expect(this.game.rounds[this.game.rounds.length - 1].player).to.equal(player)
+    expect(this.game.rounds[this.game.rounds.length - 1].result).to.equal(result)
   })
 
-Then('the game ends with {string} as the {string}',
-  async function(player, result) {
-    return 'pending'
+Then('{string} wins the game',
+  async function(player) {
+    this.response = await this.client.get(`/games/${this.game.id}`)
+    this.game = this.response.data
+    expect(this.game.winner).to.equal(player)
   })

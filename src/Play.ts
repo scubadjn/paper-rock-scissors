@@ -1,5 +1,9 @@
 import { IGame } from './Game'
-import Round, { IRound, IRoundResult } from './Round'
+import Round, { IRound, RESULT } from './Round'
+
+interface IGameEndedResult {
+  winner: string
+}
 
 export default class Play {
 
@@ -11,13 +15,33 @@ export default class Play {
 
   playRound(round: IRound): IGame {
     if (this.game.currentRound) {
-      new Round().play(round, this.game.currentRound)
+      const result = new Round().play(this.game.playerA, round, this.game.currentRound)
+      this.game.rounds.push(result)
+      this.game.currentRound = null
     } else {
       this.game.currentRound = round
-      // waiting for move
-      return null
     }
     return this.game
+  }
+
+  findWinner(): string {
+    let playerAwins: number = 0
+    let playerBwins: number = 0
+    this.game.rounds.forEach(({ result, player }) => {
+      if (result === RESULT.win) {
+        if (player ===this.game.playerA) {
+          playerAwins += 1
+        } else {
+          playerBwins += 1
+        }
+      }
+    })
+    if (playerAwins > playerBwins) {
+      return this.game.playerA
+    } else if (playerAwins < playerBwins) {
+      return this.game.playerB
+    }
+    return null
   }
 
 }

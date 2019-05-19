@@ -20,6 +20,9 @@ export default (app: Express.Application): Express.Application => {
 
   app.post('/games/:gameId/:action', (req, res) => {
     const prevGame = storage.findGame(req.params.gameId)
+    if (prevGame.gameEnded) {
+      throw new Error('game ended')
+    }
     switch (req.params.action) {
       case "join":
       prevGame.playerB = req.body.player
@@ -33,6 +36,10 @@ export default (app: Express.Application): Express.Application => {
         move: req.params.action,
         player: req.body.player,
       })
+      if (nextGame.rounds.length > 3) {
+        nextGame.winner = play.findWinner()
+        nextGame.gameEnded = true
+      }
       storage.updateGame(req.params.gameId, nextGame)
       default:
     }

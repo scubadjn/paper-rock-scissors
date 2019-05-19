@@ -9,13 +9,13 @@ Feature: playing paper rock scissor
     When "firstPlayer" makes a move "rock"
     When "secondPlayer" makes a move "rock"
     Then the round should be "draw"
+    When "firstPlayer" makes a move "rock"
+    When "secondPlayer" makes a move "paper"
+    Then "firstPlayer" "lost" the round
     When "firstPlayer" makes a move "paper"
     When "secondPlayer" makes a move "rock"
-    Then "firstPlayer" "wins" the round
+    Then "firstPlayer" "win" the round
     When "secondPlayer" makes a move "scissor"
     When "firstPlayer" makes a move "rock"
-    Then "firstPlayer" "wins" the round
-    When "firstPlayer" makes a move "paper"
-    When "secondPlayer" makes a move "scissor"
-    Then "secondPlayer" "wins" the round
-    Then the game ends with "firstPlayer" as the "winner"
+    Then "firstPlayer" "win" the round
+    Then "firstPlayer" wins the game
