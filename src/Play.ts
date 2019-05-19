@@ -29,7 +29,7 @@ export default class Play {
     let playerBwins: number = 0
     this.game.rounds.forEach(({ result, player }) => {
       if (result === RESULT.win) {
-        if (player ===this.game.playerA) {
+        if (player === this.game.playerA) {
           playerAwins += 1
         } else {
           playerBwins += 1

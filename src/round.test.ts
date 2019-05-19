@@ -33,7 +33,7 @@ describe('playerA chose rock', () => {
     expect(playerA.result).toBe(RESULT.win)
   })
 
-  it('rock vs scissor = rock lost', () => {
+  it('rock vs paper = rock lost', () => {
     const playerA = new Round().play(A, { player: A, move: MOVE.rock }, { player: B, move: MOVE.paper })
     expect(playerA.player).toBe(A)
     expect(playerA.result).toBe(RESULT.lost)
