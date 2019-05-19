@@ -1,15 +1,18 @@
+import { AxiosResponse } from 'axios'
+import { IGame } from '../../src/Game'
+import { IClient } from '../tools/Client'
+
 /* tslint:disable */
 export namespace TEST {
 
-  export interface IQueryResponse {
-  }
-
-  export interface IClient {
+  export interface IQueryResponse extends AxiosResponse {
   }
 
   export interface IMain {
     client: IClient
     response: IQueryResponse
+    url: string
+    game: IGame
   }
 
   type IStep = RegExp | string;
@@ -18,11 +21,11 @@ export namespace TEST {
 
 
   export interface IFeature {
-    Given(step: IStep, callback: IStepCallback): void;
-    When(step: IStep, callback: IStepCallback): void;
-    Then(step: IStep, callback: IStepCallback): void;
-    After(callback: any): void;
-    Before(callback: any): void;
+    Given(step: IStep, callback: IStepCallback): void | string;
+    When(step: IStep, callback: IStepCallback): void | string;
+    Then(step: IStep, callback: IStepCallback): void | string;
+    After(callback: any): void | string;
+    Before(callback: any): void | string;
   }
 
 }

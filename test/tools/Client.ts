@@ -1,11 +1,25 @@
-import { TEST } from '../types'
+import * as Axios from 'axios'
+import { AxiosPromise } from 'axios'
 
-export default class Client implements TEST.IClient {
+export interface IClient {
+  post: <T> (url: string, body?: object) => AxiosPromise<T>
+  get: <T> (url: string, body?: object) => AxiosPromise<T>
+}
 
-  private url: string
+export default class Client implements IClient {
 
-  constructor(url: string) {
-    this.url = `${url}/graphql`
+  private axios: Axios.AxiosInstance
+
+  constructor(baseURL: string) {
+    this.axios = Axios.default.create({ baseURL })
+  }
+
+  post(url: string, body?: object) {
+    return this.axios.post(url, body)
+  }
+
+  get(url: string, body?: object) {
+    return this.axios.get(url, body)
   }
 
 }

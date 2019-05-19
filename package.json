@@ -1,13 +1,15 @@
 {
-  "name": "paper-rock-scissors",
+  "name": "paper-rock-scissor",
   "version": "0.0.1",
   "description": "Game time!",
   "main": "src/index.ts",
   "scripts": {
     "start": "nodemon",
-    "lint": "tslint tslint -c tslint.json 'src/**/*.ts'",
+    "lint": "tslint -c tslint.json 'src/**/*.ts' 'test/**/*.ts'",
     "test": "jest",
-    "cucumber": "cucumber-js test/ --require-module ts-node/register --require 'test/**/*.ts' --tags @api"
+    "cucumber": "cucumber-js test/ --require-module ts-node/register --require 'test/**/*.ts' --tags @api",
+    "deploy:docker:linux": "sudo docker-compose -f docker-compose.yml up -d",
+    "all": "yarn lint && yarn test && yarn cucumber"
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,9 @@
   },
   "homepage": "https://github.com/scubadjn/paper-rock-scissors#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.16.4",
+    "swagger-ui-express": "^4.0.3",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
@@ -29,7 +33,9 @@
     "@types/express": "^4.16.1",
     "@types/jest": "^24.0.13",
     "@types/node": "^12.0.2",
+    "@types/swagger-ui-express": "^3.0.0",
     "@types/uuid": "^3.4.4",
+    "axios": "^0.18.0",
     "chai": "^4.2.0",
     "cucumber": "^5.1.0",
     "jest": "^24.8.0",

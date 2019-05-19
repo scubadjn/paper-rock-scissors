@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+
+  paper_rock_scissor:
+    build: .
+    container_name: paper_rock_scissor
+    restart: always
+    user: "node"
+    ports:
+      - 1337:1337
+    volumes:
+      - .:/node
+    command: "npm run start"

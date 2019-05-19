@@ -1,0 +1,143 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.0.1",
+    "title": "Paper Rock Scissor",
+    "description": "Game time!",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "host": "localhost:1337",
+  "basePath": "",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/games": {
+      "get": {
+        "description": "Returns all games",
+        "responses": {
+          "200": {
+            "description": "A list of games.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Game"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Creates a new game",
+        "parameters": [
+          {
+            "name": "player",
+            "in": "body",
+            "description": "players name that starts the game",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewGame"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "returns the newly created game",
+            "schema": {
+              "$ref": "#/definitions/Game"
+            }
+          }
+        }
+      }
+    },
+    "/games/{id}": {
+      "get": {
+        "description": "Returns a single game",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of a game",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A game, including state of the game",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Game"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/games/{id}/{action}": {
+      "post": {
+        "description": "Make a game move",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of a game",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "action",
+            "in": "path",
+            "description": "action to take",
+            "required": true,
+            "enum": [ "join", "rock", "paper", "scissor"]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "everything went fine"
+          },
+          "400": {
+            "description": "invalid action"
+          },
+          "404": {
+            "description": "Game not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Game": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "NewGame": {
+    "type": "object",
+    "required": [
+      "name"
+    ],
+    "properties": {
+      "name": {
+        "type": "string"
+      }
+    }
+  }
+}
