@@ -22,20 +22,14 @@ export interface IRoundResult {
 
 export default class Round {
 
-  play(gameCreator: string, playerA: IRound, playerB: IRound): IRoundResult {
-    if (gameCreator === playerA.player) {
-      return {
-        player: playerA.player,
-        result: this.move(playerA.move, playerB.move),
-      }
-    }
+  play(playerA: IRound, playerB: IRound): IRoundResult {
     return {
-      player: playerB.player,
-      result: this.move(playerB.move, playerA.move),
+      player: playerA.player,
+      result: this.move(playerA.move, playerB.move),
     }
   }
 
-  move(playerAmove: MOVE, playerBmove: MOVE): RESULT {
+  private move(playerAmove: MOVE, playerBmove: MOVE): RESULT {
     switch (playerAmove) {
       case MOVE.paper:
         return this.playerApaper(playerBmove)
@@ -48,7 +42,7 @@ export default class Round {
     }
   }
 
-  playerApaper(playerBmove: MOVE): RESULT {
+  private playerApaper(playerBmove: MOVE): RESULT {
     switch (playerBmove) {
       case MOVE.paper:
         return RESULT.draw
@@ -61,7 +55,7 @@ export default class Round {
     }
   }
 
-  playerArock(playerBmove: MOVE): RESULT {
+  private playerArock(playerBmove: MOVE): RESULT {
     switch (playerBmove) {
       case MOVE.rock:
         return RESULT.draw
@@ -74,7 +68,7 @@ export default class Round {
     }
   }
 
-  playerAscissor(playerBmove: MOVE): RESULT {
+  private playerAscissor(playerBmove: MOVE): RESULT {
     switch (playerBmove) {
       case MOVE.scissor:
         return RESULT.draw

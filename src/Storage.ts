@@ -1,5 +1,5 @@
 import * as uuid from 'uuid/v4'
-import { IGame } from './Game'
+import { IGame } from './lib/Game'
 
 export interface IStorage {
   insertGame: (game: IGame) => string

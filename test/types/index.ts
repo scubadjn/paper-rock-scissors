@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { IGame } from '../../src/Game'
+import { IGame } from '../../src/lib/Game'
 import { IClient } from '../tools/Client'
 
 /* tslint:disable */

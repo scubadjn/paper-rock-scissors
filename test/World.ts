@@ -1,4 +1,4 @@
-import { IGame } from '../src/Game'
+import { IGame } from '../src/lib/Game'
 import Client, { IClient } from './tools/Client'
 import { TEST } from './types'
 

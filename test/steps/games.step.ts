@@ -58,5 +58,5 @@ Then('{string} wins the game',
   async function(player) {
     this.response = await this.client.get(`/games/${this.game.id}`)
     this.game = this.response.data
-    expect(this.game.winner).to.equal(player)
+    expect(this.game.winner).to.equal(player === 'null' ? null : player)
   })

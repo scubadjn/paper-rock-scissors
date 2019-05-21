@@ -1,21 +1,30 @@
 Feature: playing paper rock scissor
-  
+
   @api
-  Scenario: game should be playable :)
-    Given "firstPlayer" creates a new game
+  Scenario Outline: game should be playable :)
+    Given "playerA" creates a new game
     Then a link that can be shared should be created
-    Then an other player should be able to retrive the game created by player "firstPlayer"
-    Then "secondPlayer" should be able to join the game
-    When "firstPlayer" makes a move "rock"
-    When "secondPlayer" makes a move "rock"
-    Then the round should be "draw"
-    When "firstPlayer" makes a move "rock"
-    When "secondPlayer" makes a move "paper"
-    Then "firstPlayer" "lost" the round
-    When "firstPlayer" makes a move "paper"
-    When "secondPlayer" makes a move "rock"
-    Then "firstPlayer" "win" the round
-    When "secondPlayer" makes a move "scissor"
-    When "firstPlayer" makes a move "rock"
-    Then "firstPlayer" "win" the round
-    Then "firstPlayer" wins the game
+    Then an other player should be able to retrive the game created by player "playerA"
+    Then "playerB" should be able to join the game
+    When "playerA" makes a move <playerAmoveR1>
+    When "playerB" makes a move <playerBmoveR1>
+    Then <winner> <result> the round
+    When "playerA" makes a move "paper"
+    When "playerB" makes a move "rock"
+    Then "playerA" "win" the round
+    When "playerA" makes a move "scissor"
+    When "playerB" makes a move "rock"
+    Then "playerB" "win" the round
+    Then <gamewinner> wins the game
+
+    Examples:
+      | playerAmoveR1 | playerBmoveR1 | winner    | result | gamewinner |
+      | "paper"       | "rock"        | "playerA" | "win"  | "playerA"  |
+      | "paper"       | "paper"       | "playerA" | "draw" | "null"     |
+      | "paper"       | "scissor"     | "playerB" | "win"  | "playerB"  |
+      | "rock"        | "rock"        | "playerA" | "draw" | "null"     |
+      | "rock"        | "paper"       | "playerB" | "win"  | "playerB"  |
+      | "rock"        | "scissor"     | "playerA" | "win"  | "playerA"  |
+      | "scissor"     | "rock"        | "playerB" | "win"  | "playerB"  |
+      | "scissor"     | "paper"       | "playerA" | "win"  | "playerA"  |
+      | "scissor"     | "scissor"     | "playerA" | "draw" | "null"     |

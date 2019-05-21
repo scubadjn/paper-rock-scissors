@@ -1,6 +1,5 @@
 import * as Express from 'express'
-import Game from './Game'
-import Play from './Play'
+import Game from './lib/Game'
 import Storage from './Storage'
 
 export default (app: Express.Application): Express.Application => {
@@ -31,13 +30,13 @@ export default (app: Express.Application): Express.Application => {
       case "paper":
       case "rock":
       case "scissor":
-      const play = new Play(prevGame)
-      const nextGame = play.playRound({
+      const play = new Game(prevGame)
+      const nextGame = play.run({
         move: req.params.action,
         player: req.body.player,
       })
-      if (nextGame.rounds.length > 3) {
-        nextGame.winner = play.findWinner()
+      if (nextGame.rounds.length > 2) {
+        nextGame.winner = play.findGameWinner()
         nextGame.gameEnded = true
       }
       storage.updateGame(req.params.gameId, nextGame)

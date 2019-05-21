@@ -23,8 +23,7 @@ deploy:docker:linux
 
 TODO
 * build/minify using webpack
-* extend test cases to cover more scenarios
-* refactor code in src/ (after improved testing)
+* refactor code in src
 * implement error handling
 * implement logging
 * BUG, docs are out of date. how to autogenerate docs from typescript?
