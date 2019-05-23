@@ -37,8 +37,13 @@ When('{string} should be able to join the game',
 
 When('{string} makes a move {string}',
   async function(player, move) {
-    this.response = await this.client.post(`/games/${this.game.id}/${move}`, { player })
-    this.game = this.response.data
+    try {
+      this.response = await this.client.post(`/games/${this.game.id}/${move}`, { player })
+      this.game = this.response.data
+    } catch (error) {
+      this.response = {} as any
+      this.error = error.response
+    }
   })
 
 Then('the round should be {string}',
@@ -59,4 +64,10 @@ Then('{string} wins the game',
     this.response = await this.client.get(`/games/${this.game.id}`)
     this.game = this.response.data
     expect(this.game.winner).to.equal(player === 'null' ? null : player)
+  })
+
+Then('an error with code {string} with message {string}',
+  async function(error, message) {
+    expect(this.error.status).to.equal(Number(error))
+    expect(this.error.data).to.equal(message)
   })

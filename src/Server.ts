@@ -2,6 +2,7 @@ import * as bodyParser from 'body-parser'
 import * as Express from 'express'
 import * as swaggerUi from 'swagger-ui-express'
 import application from './application'
+import { IApplicationError } from './tools/ApplicationError'
 
 interface IServerConstructor {
   port: number
@@ -37,6 +38,9 @@ export default class Server {
     const app = application(express)
     const docsPath = './docs.json'
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(require(docsPath)))
+    app.use(({ status, message}: IApplicationError, _, res: Express.Response, __) => {
+      res.status(status).send(message)
+    })
     return app
   }
 

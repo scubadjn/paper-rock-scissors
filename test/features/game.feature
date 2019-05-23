@@ -28,3 +28,13 @@ Feature: playing paper rock scissor
       | "scissor"     | "rock"        | "playerB" | "win"  | "playerB"  |
       | "scissor"     | "paper"       | "playerA" | "win"  | "playerA"  |
       | "scissor"     | "scissor"     | "playerA" | "draw" | "null"     |
+
+  @api
+  Scenario: each player should only be able to play 1 time each round
+    Given "playerA" creates a new game
+    Then a link that can be shared should be created
+    Then an other player should be able to retrive the game created by player "playerA"
+    Then "playerB" should be able to join the game
+    When "playerA" makes a move "paper"
+    When "playerA" makes a move "paper"
+    Then an error with code "403" with message "Waiting for other player."

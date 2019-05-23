@@ -1,3 +1,4 @@
+import ApplicationError from '../tools/ApplicationError'
 import Round, { IRound, IRoundResult, RESULT } from './Round'
 
 export interface IGame {
@@ -33,6 +34,9 @@ export default class Game {
 
   run(round: IRound): IGame {
     if (this.game.currentRound) {
+      if (this.game.currentRound.player === round.player) {
+        throw new ApplicationError(403, 'Waiting for other player.')
+      }
       const result = this.playRound(round)
       this.game.rounds.push(this.findRoundWinner(result))
       this.game.currentRound = null
