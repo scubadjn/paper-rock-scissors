@@ -26,13 +26,18 @@ When('an other player should be able to retrive the game created by player {stri
     expect(this.game.playerB).to.equal(null)
   })
 
-When('{string} should be able to join the game',
+When('{string} try to join the game',
   async function(secondPlayer) {
-    this.response = await this.client.post(`/games/${this.game.id}/join`, { player: secondPlayer })
-    this.game = this.response.data
-    expect(this.game.currentRound).to.equal(null)
-    expect(this.game.id).to.equal(this.game.id)
-    expect(this.game.playerB).to.equal(secondPlayer)
+    try {
+      this.response = await this.client.post(`/games/${this.game.id}/join`, { player: secondPlayer })
+      this.game = this.response.data
+      expect(this.game.currentRound).to.equal(null)
+      expect(this.game.id).to.equal(this.game.id)
+      expect(this.game.playerB).to.equal(secondPlayer)
+    } catch (error) {
+      this.response = {} as any
+      this.error = error.response
+    }
   })
 
 When('{string} makes a move {string}',
@@ -53,17 +58,26 @@ Then('the round should be {string}',
 
 Then('{string} {string} the round',
   async function(player, result) {
-    this.response = await this.client.get(`/games/${this.game.id}`)
-    this.game = this.response.data
-    expect(this.game.rounds[this.game.rounds.length - 1].player).to.equal(player)
-    expect(this.game.rounds[this.game.rounds.length - 1].result).to.equal(result)
+    try {
+      this.response = await this.client.get(`/games/${this.game.id}`)
+      this.game = this.response.data
+      expect(this.game.rounds[this.game.rounds.length - 1].player).to.equal(player)
+      expect(this.game.rounds[this.game.rounds.length - 1].result).to.equal(result)
+    } catch (error) {
+      this.response = {} as any
+      this.error = error.response
+    }
   })
 
-Then('{string} wins the game',
+Then('game should end if there is a {string} else restart',
   async function(player) {
     this.response = await this.client.get(`/games/${this.game.id}`)
     this.game = this.response.data
-    expect(this.game.winner).to.equal(player === 'null' ? null : player)
+    if (player === 'draw' && this.game.winner === null) {
+      expect(this.game.rounds.length).to.equal(0)
+    } else {
+      expect(this.game.winner).to.equal(player)
+    }
   })
 
 Then('an error with code {string} with message {string}',

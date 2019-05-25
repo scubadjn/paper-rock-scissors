@@ -100,6 +100,15 @@
             "description": "action to take",
             "required": true,
             "enum": [ "join", "rock", "paper", "scissor"]
+          },
+          {
+            "name": "player",
+            "in": "body",
+            "description": "player that makes the move",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewGame"
+            }
           }
         ],
         "responses": {
@@ -132,10 +141,10 @@
   "NewGame": {
     "type": "object",
     "required": [
-      "name"
+      "player"
     ],
     "properties": {
-      "name": {
+      "player": {
         "type": "string"
       }
     }

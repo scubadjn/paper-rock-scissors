@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/scubadjn/paper-rock-scissors#readme",
   "dependencies": {
+    "ajv": "^6.10.0",
     "body-parser": "^1.19.0",
     "express": "^4.16.4",
     "swagger-ui-express": "^4.0.3",
