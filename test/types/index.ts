@@ -13,6 +13,7 @@ export namespace TEST {
     response: IQueryResponse
     url: string
     game: IGame
+    error: any
   }
 
   type IStep = RegExp | string;

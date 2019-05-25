@@ -37,8 +37,6 @@ export default class Round {
         return this.playerArock(playerBmove)
       case MOVE.scissor:
         return this.playerAscissor(playerBmove)
-      default:
-        throw new Error('invalid move')
     }
   }
 
@@ -50,8 +48,6 @@ export default class Round {
         return RESULT.lost
       case MOVE.rock:
         return RESULT.win
-      default:
-        throw new Error('invalid move')
     }
   }
 
@@ -63,8 +59,6 @@ export default class Round {
         return RESULT.win
       case MOVE.paper:
         return RESULT.lost
-      default:
-        throw new Error('invalid move')
     }
   }
 
@@ -76,8 +70,6 @@ export default class Round {
         return RESULT.lost
       case MOVE.paper:
         return RESULT.win
-      default:
-        throw new Error('invalid move')
     }
   }
 

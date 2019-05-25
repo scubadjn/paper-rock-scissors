@@ -7,6 +7,7 @@ export default abstract class World implements TEST.IMain {
   public response: TEST.IQueryResponse
   public url: string
   public game: IGame = {} as IGame
+  public error: any
 
   constructor(apiUrl: string) {
     this.client = new Client(apiUrl)
