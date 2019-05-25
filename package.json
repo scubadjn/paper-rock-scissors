@@ -9,7 +9,8 @@
     "test": "jest",
     "cucumber": "cucumber-js test/ --require-module ts-node/register --require 'test/**/*.ts' --tags @api",
     "deploy:docker:linux": "sudo docker-compose -f docker-compose.yml up -d",
-    "all": "yarn lint && yarn test && yarn cucumber"
+    "all": "yarn lint && yarn test && yarn cucumber",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

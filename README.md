@@ -26,6 +26,11 @@ yarn cucumber
 yarn all
 ```
 
+#### transpile to ES6
+```
+yarn build
+```
+
 #### depoy on linux using docker-compose
 ```
 deploy:docker:linux
