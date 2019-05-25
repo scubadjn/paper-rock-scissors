@@ -1,14 +1,8 @@
 import * as uuid from 'uuid/v4'
-import { IGame } from './lib/Game'
+import { IGame } from '../lib/Game'
+import { IStorage } from './StorageInterface'
 
-export interface IStorage {
-  insertGame: (game: IGame) => string
-  updateGame: (gameId: string, nextGame: IGame) => void
-  findGame: (gameId: string) => IGame
-  findAllGames: () => IGame[]
-}
-
-export default class Storage implements IStorage {
+export default class StorageStub implements IStorage {
 
   private store: Map<string, IGame>
 

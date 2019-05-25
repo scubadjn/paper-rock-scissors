@@ -1,12 +1,10 @@
-import * as Ajv from 'ajv'
 import * as Express from 'express'
 import Game from './lib/Game'
-import Storage from './Storage'
+import { IProvider } from './providers'
 import ApplicationError from './tools/ApplicationError'
+import Validate from './tools/Validator'
 
-const ajv = new Ajv()
-
-const playerBodySchema = {
+const playerInbody = new Validate().schema({
   properties: {
     player: { type: "string" },
   },
@@ -14,12 +12,10 @@ const playerBodySchema = {
     'player',
   ],
   type: 'object',
-}
+})
 
-const playerInbody = ajv.compile(playerBodySchema)
-
-export default (app: Express.Application): Express.Application => {
-  const storage = new Storage()
+export default (app: Express.Application, provider: IProvider): Express.Application => {
+  const storage = provider.getStorage()
 
   app.get('/games', (_, res) => {
     const games = storage.findAllGames()
@@ -28,9 +24,7 @@ export default (app: Express.Application): Express.Application => {
 
   app.post('/games', (req, res) => {
     const { body } = req
-    if (!playerInbody(body)) {
-      throw new ApplicationError(400)
-    }
+    playerInbody.validate(body)
     const game = new Game().create(body.player)
     const gameId = storage.insertGame(game)
     const url = `${req.protocol}://${req.get('host')}${req.originalUrl}/${gameId}`
@@ -44,9 +38,7 @@ export default (app: Express.Application): Express.Application => {
 
   app.post('/games/:gameId/:action', (req, res) => {
     const { body } = req
-    if (!playerInbody(body)) {
-      throw new ApplicationError(400)
-    }
+    playerInbody.validate(body)
     const prevGame = storage.findGame(req.params.gameId)
     if (prevGame.gameEnded) {
       throw new ApplicationError(403, "Game has ended.")
@@ -67,13 +59,13 @@ export default (app: Express.Application): Express.Application => {
           throw new ApplicationError(403, "Invalid player name.")
         }
       }
-      const play = new Game(prevGame)
-      const nextGame = play.run({
+      const game = new Game(prevGame)
+      const nextGame = game.play({
         move: req.params.action,
         player: req.body.player,
       })
       if (nextGame.rounds.length > 2) {
-        nextGame.winner = play.findGameWinner()
+        nextGame.winner = game.findGameWinner()
         if (nextGame.winner) {
           nextGame.gameEnded = true
         } else {

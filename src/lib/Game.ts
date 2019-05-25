@@ -32,7 +32,7 @@ export default class Game {
     return this.game
   }
 
-  run(round: IRound): IGame {
+  play(round: IRound): IGame {
     if (this.game.currentRound) {
       if (this.game.currentRound.player === round.player) {
         throw new ApplicationError(403, 'Waiting for other player.')

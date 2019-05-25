@@ -2,7 +2,9 @@ import * as bodyParser from 'body-parser'
 import * as Express from 'express'
 import * as swaggerUi from 'swagger-ui-express'
 import application from './application'
+import Provider from './providers'
 import { IApplicationError } from './tools/ApplicationError'
+import logger from './tools/logger'
 
 interface IServerConstructor {
   port: number
@@ -23,8 +25,10 @@ export default class Server {
       })
       const { port } = this.instance.address()
       return { port }
-    } catch (e) {
-      throw new Error("failed to start api")
+    } catch (err) {
+      const msg = 'failed to start api'
+      logger.error(msg, err)
+      throw new Error(msg)
     }
   }
 
@@ -35,8 +39,8 @@ export default class Server {
   private app() {
     const express = Express()
     express.use(bodyParser.json())
-    const app = application(express)
-    const docsPath = './docs.json'
+    const app = application(express, new Provider('memory'))
+    const docsPath = '../docs.json'
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(require(docsPath)))
     app.use(({ status, message}: IApplicationError, _, res: Express.Response, __) => {
       res.status(status).send(message)
