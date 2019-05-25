@@ -9,6 +9,4 @@ services:
     user: "node"
     ports:
       - 1337:1337
-    volumes:
-      - .:/node
-    command: "npm run start"
+    command: "npm run serv"

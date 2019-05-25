@@ -8,9 +8,11 @@
     "lint": "tslint -c tslint.json 'src/**/*.ts' 'test/**/*.ts'",
     "test": "jest",
     "cucumber": "cucumber-js test/ --require-module ts-node/register --require 'test/**/*.ts' --tags @api",
-    "deploy:docker:linux": "sudo docker-compose -f docker-compose.yml up -d",
+    "deploy:docker:linux": "sudo docker-compose -f docker-compose.yml up -d --build",
     "all": "yarn lint && yarn test && yarn cucumber",
-    "build": "tsc"
+    "build": "tsc",
+    "bundle": "uglifyjs build/index.js -c -m -o build/main.min.js",
+    "serv": "node build/main.min.js"
   },
   "repository": {
     "type": "git",

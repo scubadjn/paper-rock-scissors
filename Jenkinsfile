@@ -32,6 +32,18 @@ pipeline {
         sh 'yarn build'
       }
     }
+
+    stage('bundle'){
+      steps {
+        sh 'yarn bundle'
+      }
+    }
+  
+    stage('deploying'){
+      steps {
+        sh 'deploy:docker:linux'
+      }
+    }
   
   }
 }
