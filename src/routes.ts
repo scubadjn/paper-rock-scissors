@@ -33,8 +33,8 @@ export default (app: Express.Application, provider: IProvider): Express.Applicat
     type: 'object',
   })
 
-  app.get('/games', (_, { send }) => {
-    send(application.listGames())
+  app.get('/games', (_, res) => {
+    res.send(application.listGames())
   })
 
   app.post('/games', (req, res) => {
