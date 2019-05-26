@@ -12,13 +12,13 @@ export default class Validator implements IValidator {
 
   compile(schema: object) {
     const ajv = new Ajv()
-    this.validate = ajv.compile(schema)
+    this.validateData = ajv.compile(schema)
     return this
   }
 
   validate(data: object): void {
-    if (this.validateData(data)) {
-      throw new ApplicationError(400)
+    if (!this.validateData(data)) {
+      throw new ApplicationError(400, 'Bad Request')
     }
   }
 }
